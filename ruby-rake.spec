@@ -2,14 +2,14 @@
 %define name  ruby-%{rname}
 
 %define version 0.7.1
-%define release %mkrel 1
+%define release %mkrel 2
 
 Summary: Simple ruby build program with capabilities similar to make
 Name: %name
 Version: %version
 Release: %release
 License: MIT
-Group: Development/Other
+Group: Development/Ruby
 URL: http://rake.rubyforge.org/
 Source0: %{rname}-%{version}.gem
 BuildRoot: %{_tmppath}/%{name}-buildroot
