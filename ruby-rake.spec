@@ -51,7 +51,7 @@ rm -rf %buildroot
 DESTDIR=$RPM_BUILD_ROOT ruby install.rb --no-ri --tests
 
 mkdir -p $RPM_BUILD_ROOT{%{ruby_ridir},%{ruby_gemdir}/specifications}
-cp -a ri/ri/{CompositePublisher,Rake,RakeFileUtils,SshDirPublisher,SshFilePublisher,SshFreshDirPublisher} $RPM_BUILD_ROOT%{ruby_ridir}
+cp -a ri/{CompositePublisher,Rake,RakeFileUtils,SshDirPublisher,SshFilePublisher,SshFreshDirPublisher} $RPM_BUILD_ROOT%{ruby_ridir}
 cp -a %rname-%version.gemspec $RPM_BUILD_ROOT%{ruby_gemdir}/specifications/
 
 mkdir -p %buildroot%{_mandir}/man1
