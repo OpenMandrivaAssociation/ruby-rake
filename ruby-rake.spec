@@ -12,6 +12,7 @@ License: MIT
 Group: Development/Ruby
 URL: http://rake.rubyforge.org/
 Source0: %{rname}-%{version}.gem
+BuildRoot: %{_tmppath}/%{name}-buildroot
 BuildArch: noarch
 BuildRequires: ruby-RubyGems
 Requires: ruby
