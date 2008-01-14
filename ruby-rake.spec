@@ -1,7 +1,7 @@
 %define rname rake
 %define name  ruby-%{rname}
 
-%define version 0.7.3
+%define version 0.8.1
 %define release %mkrel 1
 
 Summary: Simple ruby build program with capabilities similar to make
