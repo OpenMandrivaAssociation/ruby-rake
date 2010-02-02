@@ -1,21 +1,17 @@
-%define rname rake
-%define name  ruby-%{rname}
+%define	rname	rake
 
-%define version 0.8.3
-%define release %mkrel 2
-
-Summary: Simple ruby build program with capabilities similar to make
-Name: %name
-Version: %version
-Release: %release
-License: MIT
-Group: Development/Ruby
-URL: http://rake.rubyforge.org/
-Source0: %{rname}-%{version}.gem
-BuildRoot: %{_tmppath}/%{name}-buildroot
-BuildArch: noarch
-BuildRequires: ruby-RubyGems
-Requires: ruby
+Summary:	Simple ruby build program with capabilities similar to make
+Name:		ruby-%{rname}
+Version:	0.8.7
+Release:	%mkrel 1
+License:	MIT
+Group:		Development/Ruby
+URL:		http://rake.rubyforge.org/
+Source0:	http://gems.rubyforge.org/gems/%{rname}-%{version}.gem
+BuildRoot:	%{_tmppath}/%{name}-buildroot
+BuildArch:	noarch
+BuildRequires:	ruby-RubyGems
+Requires:	ruby
 
 %description
 This package contains Rake, a simple ruby build program with capabilities
@@ -59,13 +55,13 @@ cp doc/*.1.gz %buildroot%{_mandir}/man1/
 
 for f in `find %buildroot%{ruby_sitelibdir} -type f`
 do
-        if head -n1 "$f" | grep '^#!' >/dev/null;
-        then
-                sed -i 's|/usr/local/bin|/usr/bin|' "$f"
-                chmod 0755 "$f"
-        else
-                chmod 0644 "$f"
-        fi
+	if head -n1 "$f" | grep '^#!' >/dev/null;
+	then
+		sed -i 's|/usr/local/bin|/usr/bin|' "$f"
+		chmod 0755 "$f"
+	else
+	chmod 0644 "$f"
+	fi
 done
 
 %clean
