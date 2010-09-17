@@ -3,7 +3,7 @@
 Summary:	Simple ruby build program with capabilities similar to make
 Name:		ruby-%{rname}
 Version:	0.8.7
-Release:	%mkrel 1
+Release:	%mkrel 2
 License:	MIT
 Group:		Development/Ruby
 URL:		http://rake.rubyforge.org/
@@ -11,7 +11,6 @@ Source0:	http://gems.rubyforge.org/gems/%{rname}-%{version}.gem
 BuildRoot:	%{_tmppath}/%{name}-buildroot
 BuildArch:	noarch
 BuildRequires:	ruby-RubyGems
-Requires:	ruby
 
 %description
 This package contains Rake, a simple ruby build program with capabilities
