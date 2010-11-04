@@ -1,16 +1,17 @@
-%define	rname	rake
+%define rname   rake
 
-Summary:	Simple ruby build program with capabilities similar to make
-Name:		ruby-%{rname}
-Version:	0.8.7
-Release:	%mkrel 2
-License:	MIT
-Group:		Development/Ruby
-URL:		http://rake.rubyforge.org/
-Source0:	http://gems.rubyforge.org/gems/%{rname}-%{version}.gem
-BuildRoot:	%{_tmppath}/%{name}-buildroot
-BuildArch:	noarch
-BuildRequires:	ruby-RubyGems
+Summary:    Simple ruby build program with capabilities similar to make
+Name:       ruby-%{rname}
+Version:    0.8.7
+Release:    %mkrel 3
+License:    MIT
+Group:      Development/Ruby
+URL:        http://rake.rubyforge.org/
+Source0:    http://gems.rubyforge.org/gems/%{rname}-%{version}.gem
+BuildRoot:  %{_tmppath}/%{name}-buildroot
+BuildArch:  noarch
+BuildRequires: ruby-RubyGems
+Provides:   rubygem(%{rname}) = %{version}
 
 %description
 This package contains Rake, a simple ruby build program with capabilities
@@ -27,40 +28,35 @@ Rake has the following features:
    on target systems.
 
 %prep
-rm -rf %rname-%version
-rm -rf tmp-%rname-%version
-mkdir tmp-%rname-%version
-gem install --ignore-dependencies %{SOURCE0} --no-rdoc --install-dir `pwd`/tmp-%rname-%version
-mv tmp-%rname-%version/gems/%rname-%version .
-mv tmp-%rname-%version/specifications/%rname-%version.gemspec %rname-%version/
-rm -rf tmp-%rname-%version
-%setup -T -D -n %rname-%version
 
 %build
-rdoc --ri --op ri --title "Rake -- Ruby Make" --main README --line-numbers lib doc/glossary.rdoc doc/proto_rake.rdoc doc/rational.rdoc doc/rakefile.rdoc doc/release_notes/rake-0.4.14.rdoc doc/release_notes/rake-0.5.3.rdoc doc/release_notes/rake-0.4.15.rdoc doc/release_notes/rake-0.6.0.rdoc doc/release_notes/rake-0.5.0.rdoc doc/release_notes/rake-0.5.4.rdoc doc/release_notes/rake-0.7.0.rdoc README CHANGES TODO
-rdoc --op rdoc --title "Rake -- Ruby Make" --main README --line-numbers lib doc/glossary.rdoc doc/proto_rake.rdoc doc/rational.rdoc doc/rakefile.rdoc doc/release_notes/rake-0.4.14.rdoc doc/release_notes/rake-0.5.3.rdoc doc/release_notes/rake-0.4.15.rdoc doc/release_notes/rake-0.6.0.rdoc doc/release_notes/rake-0.5.0.rdoc doc/release_notes/rake-0.5.4.rdoc doc/release_notes/rake-0.7.0.rdoc README CHANGES TODO
 
 %install
 rm -rf %buildroot
+gem install --local --install-dir %{buildroot}%{ruby_gemdir} \
+            --force --rdoc %{SOURCE0}
 
-DESTDIR=$RPM_BUILD_ROOT ruby install.rb --no-ri --tests
+# Move executable to bindir
+mkdir -p %{buildroot}/%{_bindir}
+mv %{buildroot}%{ruby_gemdir}/bin/* %{buildroot}/%{_bindir}
+rmdir %{buildroot}%{ruby_gemdir}/bin
+chmod a+x %{buildroot}%{ruby_gemdir}/gems/%{rname}-%{version}/bin/rake
 
-mkdir -p $RPM_BUILD_ROOT{%{ruby_ridir},%{ruby_gemdir}/specifications}
-cp -a ri/{CompositePublisher,Rake,RakeFileUtils,SshDirPublisher,SshFilePublisher,SshFreshDirPublisher} $RPM_BUILD_ROOT%{ruby_ridir}
-cp -a %rname-%version.gemspec $RPM_BUILD_ROOT%{ruby_gemdir}/specifications/
+# Move manpage to mandir
+mkdir -p %{buildroot}%{_mandir}/man1/
+gzip -dc %{buildroot}%{ruby_gemdir}/gems/%{rname}-%{version}/doc/rake.1.gz > %{buildroot}%{_mandir}/man1/rake.1
+rm %{buildroot}%{ruby_gemdir}/gems/%{rname}-%{version}/doc/rake.1.gz
 
-mkdir -p %buildroot%{_mandir}/man1
-cp doc/*.1.gz %buildroot%{_mandir}/man1/
-
-for f in `find %buildroot%{ruby_sitelibdir} -type f`
+# Fix shebang and permissions
+for f in `find %buildroot%{ruby_gemdir}/gems/%{rname}-%{version} -type f`
 do
-	if head -n1 "$f" | grep '^#!' >/dev/null;
-	then
-		sed -i 's|/usr/local/bin|/usr/bin|' "$f"
-		chmod 0755 "$f"
-	else
-	chmod 0644 "$f"
-	fi
+  if head -n1 "$f" | grep '^#!' >/dev/null;
+  then
+    sed -i 's|/usr/local/bin|/usr/bin|' "$f"
+    chmod 0755 "$f"
+  else
+    chmod 0644 "$f"
+  fi
 done
 
 %clean
@@ -68,10 +64,19 @@ rm -rf %buildroot
 
 %files
 %defattr(-,root,root)
-%attr(755,root,root) %{_bindir}/%{rname}
-%{_mandir}/man1/*
-%{ruby_sitelibdir}/*
-%{ruby_ridir}/*
-%{ruby_gemdir}/specifications/%rname-%version.gemspec
-%doc CHANGES README TODO rdoc doc/example
-
+%{_bindir}/rake
+%{_mandir}/man1/%{rname}.1.*
+%dir %{ruby_gemdir}/gems/%{rname}-%{version}/
+%{ruby_gemdir}/gems/%{rname}-%{version}/bin/
+%{ruby_gemdir}/gems/%{rname}-%{version}/lib/
+%{ruby_gemdir}/gems/%{rname}-%{version}/test/
+%{ruby_gemdir}/gems/%{rname}-%{version}/install.rb
+%doc %{ruby_gemdir}/doc/%{rname}-%{version}
+%doc %{ruby_gemdir}/gems/%{rname}-%{version}/Rakefile
+%doc %{ruby_gemdir}/gems/%{rname}-%{version}/README
+%doc %{ruby_gemdir}/gems/%{rname}-%{version}/MIT-LICENSE
+%doc %{ruby_gemdir}/gems/%{rname}-%{version}/TODO
+%doc %{ruby_gemdir}/gems/%{rname}-%{version}/CHANGES
+%doc %{ruby_gemdir}/gems/%{rname}-%{version}/doc/
+%{ruby_gemdir}/cache/%{rname}-%{version}.gem
+%{ruby_gemdir}/specifications/%{rname}-%{version}.gemspec
