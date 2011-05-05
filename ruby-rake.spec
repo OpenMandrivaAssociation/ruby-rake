@@ -3,7 +3,7 @@
 Summary:    Simple ruby build program with capabilities similar to make
 Name:       ruby-%{rname}
 Version:    0.8.7
-Release:    %mkrel 3
+Release:    %mkrel 4
 License:    MIT
 Group:      Development/Ruby
 URL:        http://rake.rubyforge.org/
