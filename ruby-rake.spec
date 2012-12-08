@@ -80,3 +80,74 @@ rm -rf %buildroot
 %doc %{ruby_gemdir}/gems/%{rname}-%{version}/doc/
 %{ruby_gemdir}/cache/%{rname}-%{version}.gem
 %{ruby_gemdir}/specifications/%{rname}-%{version}.gemspec
+
+
+%changelog
+* Thu May 05 2011 Oden Eriksson <oeriksson@mandriva.com> 0.8.7-4mdv2011.0
++ Revision: 669460
+- mass rebuild
+
+* Thu Nov 04 2010 Rémy Clouard <shikamaru@mandriva.org> 0.8.7-3mdv2011.0
++ Revision: 593325
+- Install rake as a gem to allow other gems requiring it
+- move gem install to %%install
+- move files to %%{ruby_gemdir} (needed for spork)
+
+* Fri Sep 17 2010 Per Øyvind Karlsen <peroyvind@mandriva.org> 0.8.7-2mdv2011.0
++ Revision: 579221
+- rebuild with automatic provides/requires
+
+* Tue Feb 02 2010 Per Øyvind Karlsen <peroyvind@mandriva.org> 0.8.7-1mdv2010.1
++ Revision: 499443
+- new release: 0.8.8
+- perform some cosmetics
+
+* Thu Sep 03 2009 Christophe Fergeau <cfergeau@mandriva.com> 0.8.3-2mdv2010.0
++ Revision: 426965
+- rebuild
+
+* Sun Feb 01 2009 Funda Wang <fwang@mandriva.org> 0.8.3-1mdv2009.1
++ Revision: 336111
+- New version 0.8.3
+
+* Wed Jun 18 2008 Thierry Vignaud <tv@mandriva.org> 0.8.1-2mdv2009.0
++ Revision: 225338
+- rebuild
+
+* Mon Jan 14 2008 Alexander Kurtakov <akurtakov@mandriva.org> 0.8.1-1mdv2008.1
++ Revision: 151230
+- new version
+
+  + Olivier Blin <oblin@mandriva.com>
+    - restore BuildRoot
+
+  + Thierry Vignaud <tv@mandriva.org>
+    - kill re-definition of %%buildroot on Pixel's request
+
+* Sun Apr 22 2007 Pascal Terjan <pterjan@mandriva.org> 0.7.3-1mdv2008.0
++ Revision: 16720
+- 0.7.3
+
+* Sat Apr 21 2007 Pascal Terjan <pterjan@mandriva.org> 0.7.1-2mdv2008.0
++ Revision: 16671
+- ri is now in ri/ and not ri/ri/
+- Use Development/Ruby group
+
+
+* Fri Jul 28 2006 Olivier Blin <blino@mandriva.com> 0.7.1-1mdv2007.0
+- 0.7.1
+
+* Mon Feb 13 2006 Pascal Terjan <pterjan@mandriva.org> 0.7.0-2mdk
+- use gem
+- use system ruby macros
+
+* Thu Feb 09 2006 Pascal Terjan <pterjan@mandriva.org> 0.7.0-1mdk
+- 0.7.0
+
+* Tue Sep 06 2005 Pascal Terjan <pterjan@mandriva.org> 0.6.0-1mdk
+- 0.6.0
+- mkrel
+
+* Mon Jul 11 2005 Pascal Terjan <pterjan@mandriva.org> 0.5.4-1mdk
+- first release
+
