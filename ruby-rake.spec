@@ -6,7 +6,7 @@ Version:    0.8.7
 Release:    %mkrel 4
 License:    MIT
 Group:      Development/Ruby
-URL:        http://rake.rubyforge.org/
+URL:        https://rake.rubyforge.org/
 Source0:    http://gems.rubyforge.org/gems/%{rname}-%{version}.gem
 BuildRoot:  %{_tmppath}/%{name}-buildroot
 BuildArch:  noarch
